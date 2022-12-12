@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demucs-rest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demucs-rest
+  template:
+    metadata:
+      labels:
+        app: demucs-rest
+    spec:
+      containers:
+        - name: demucs-rest
+          image: aishwarya09031997/demucs-rest:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
+              protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: "redis"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: MINIO_HOST
+              value: "minio:9000"
